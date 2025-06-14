@@ -2,6 +2,7 @@ import React from "react";
 import { PropTypes } from "prop-types";
 import { Box, Grid, Typography, Skeleton, Alert } from "@mui/material";
 import DestinationCard from "./DestinationsCard";
+import SkeletonCard from "./SkeletonCard";
 
 const PopularDestinations = ({ data, isLoading, error }) => {
   return (
@@ -13,6 +14,7 @@ const PopularDestinations = ({ data, isLoading, error }) => {
           py: { xs: 6, sm: 8, md: 10 },
         }}
       >
+        {/* Section Title */}
         <Typography
           variant="h4"
           gutterBottom
@@ -27,6 +29,7 @@ const PopularDestinations = ({ data, isLoading, error }) => {
           Explore Most Popular Destinations
         </Typography>
 
+        {/* Section Subtitle */}
         <Typography
           variant="body1"
           sx={{
@@ -44,45 +47,11 @@ const PopularDestinations = ({ data, isLoading, error }) => {
         </Typography>
 
         <Box sx={{ mt: 8, mx: "auto" }} component={"div"}>
+          {/* Loading Skeleton */}
           {isLoading ? (
-            <Grid
-              container
-              rowSpacing={6}
-              columnSpacing={4}
-              justifyContent="center"
-            >
-              {Array.from(new Array(8)).map((_, index) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    alignItems: "stretch",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: "400px",
-                      maxWidth: 300,
-                    }}
-                  >
-                    <Skeleton
-                      variant="rectangular"
-                      height={200}
-                      sx={{ borderRadius: 2 }}
-                    />
-                    <Skeleton width="80%" height={30} sx={{ mt: 2 }} />
-                    <Skeleton width="60%" height={20} />
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
+            <SkeletonCard />
           ) : error ? (
+            // Error Alert
             <Alert
               severity="error"
               sx={{ maxWidth: 500, mx: "auto", mt: 4, textAlign: "center" }}
@@ -90,6 +59,7 @@ const PopularDestinations = ({ data, isLoading, error }) => {
               {error}
             </Alert>
           ) : (
+            // Display Destinations
             <Grid
               container
               rowSpacing={6}
@@ -98,11 +68,6 @@ const PopularDestinations = ({ data, isLoading, error }) => {
             >
               {data.map((item, index) => (
                 <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
                   key={index}
                   sx={{
                     display: "flex",
@@ -125,6 +90,7 @@ const PopularDestinations = ({ data, isLoading, error }) => {
   );
 };
 
+// Defining the Props for DestinationCard Component
 PopularDestinations.propTypes = {
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,

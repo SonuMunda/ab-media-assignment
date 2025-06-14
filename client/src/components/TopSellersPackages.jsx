@@ -2,6 +2,7 @@ import React from "react";
 import { PropTypes } from "prop-types";
 import { Box, Grid, Typography, Skeleton, Alert } from "@mui/material";
 import TopSellerCard from "./TopsellerCard";
+import SkeletonCard from "./SkeletonCard";
 
 const TopSellersPackages = ({ data, isLoading, error }) => {
   return (
@@ -13,6 +14,7 @@ const TopSellersPackages = ({ data, isLoading, error }) => {
           py: { xs: 6, sm: 8, md: 10 },
         }}
       >
+        {/* Section Title */}
         <Typography
           variant="h4"
           gutterBottom
@@ -27,6 +29,7 @@ const TopSellersPackages = ({ data, isLoading, error }) => {
           Explore Most Popular Destinations
         </Typography>
 
+        {/* Section Sub title */}
         <Typography
           variant="body1"
           sx={{
@@ -43,45 +46,10 @@ const TopSellersPackages = ({ data, isLoading, error }) => {
           packages.
         </Typography>
 
+        {/* Section Content  */}
         <Box sx={{ mt: 8, mx: "auto" }} component={"div"}>
           {isLoading ? (
-            <Grid
-              container
-              rowSpacing={6}
-              columnSpacing={4}
-              justifyContent="center"
-            >
-              {Array.from(new Array(8)).map((_, index) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    alignItems: "stretch",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: "400px",
-                      maxWidth: 300,
-                    }}
-                  >
-                    <Skeleton
-                      variant="rectangular"
-                      height={200}
-                      sx={{ borderRadius: 2 }}
-                    />
-                    <Skeleton width="80%" height={30} sx={{ mt: 2 }} />
-                    <Skeleton width="60%" height={20} />
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
+            <SkeletonCard />
           ) : error ? (
             <Alert
               severity="error"
@@ -90,6 +58,7 @@ const TopSellersPackages = ({ data, isLoading, error }) => {
               {error}
             </Alert>
           ) : (
+            // Gird
             <Grid
               container
               rowSpacing={6}
@@ -98,11 +67,6 @@ const TopSellersPackages = ({ data, isLoading, error }) => {
             >
               {data.map((item, index) => (
                 <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
                   key={index}
                   sx={{
                     display: "flex",
@@ -110,6 +74,7 @@ const TopSellersPackages = ({ data, isLoading, error }) => {
                     justifyContent: "center",
                   }}
                 >
+                  {/* Top Seller Card */}
                   <TopSellerCard
                     image={item?.image}
                     name={item?.name}
